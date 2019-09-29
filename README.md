@@ -43,7 +43,7 @@ Forked from the original https://github.com/gastaldi/git-checkout-plugin
 
 ```
 
-#Output
+# Output
 
 ```
 [INFO] --- git-checkout-plugin:1.0.0-SNAPSHOT:git-checkout (get-docs) @ launchpad-addon ---
@@ -59,7 +59,8 @@ From github.com:openshiftio/appdev-documentation
 [INFO] Files available in: /home/ggastald/workspace/launchpad/launchpad-addon/target/classes
 ```
 
-#Parameters
+# Parameters
+
 |Name|Default Value|Required|Description|
 |----|-------------|--------|-----------|
 |repository||true|URL of the repository (both ssh and https work)|
