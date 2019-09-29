@@ -6,6 +6,8 @@ For details on sparse checkout see https://git-scm.com/docs/git-read-tree.
 
 Forked from the original https://github.com/gastaldi/git-checkout-plugin
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.lzaruba/git-checkout-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.lzaruba/git-checkout-plugin)
+
 
 # POM Configuration 
 
@@ -17,7 +19,7 @@ Forked from the original https://github.com/gastaldi/git-checkout-plugin
        <plugin>
           <groupId>com.github.lzaruba</groupId>
           <artifactId>git-checkout-plugin</artifactId>
-          <version>1.0.0</version>
+          <version>1.0.1</version>
           <executions>
              <execution>
                 <id>get-docs</id>
