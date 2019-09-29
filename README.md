@@ -60,6 +60,7 @@ From github.com:openshiftio/appdev-documentation
 ```
 
 # Parameters
+
 |Name|Default Value|Required|Description|
 |----|-------------|--------|-----------|
 |repository||true|URL of the repository (both ssh and https work)|
