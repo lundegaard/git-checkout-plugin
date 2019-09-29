@@ -1,6 +1,10 @@
 # git-checkout-plugin
 
-A Maven plugin to perform a sparse checkout (fetch only a subtree) from a given Git repository
+A Maven plugin to perform a sparse checkout (fetch only a subtree) from a given Git repository.
+
+For details on sparse checkout see https://git-scm.com/docs/git-read-tree.
+
+Forked from the original https://github.com/gastaldi/git-checkout-plugin
 
 
 # POM Configuration 
@@ -11,9 +15,9 @@ A Maven plugin to perform a sparse checkout (fetch only a subtree) from a given 
   <build>
     <plugins>
        <plugin>
-          <groupId>com.github.gastaldi</groupId>
+          <groupId>com.github.lzaruba</groupId>
           <artifactId>git-checkout-plugin</artifactId>
-          <version>1.0.0-SNAPSHOT</version>
+          <version>1.0.0</version>
           <executions>
              <execution>
                 <id>get-docs</id>
@@ -25,10 +29,10 @@ A Maven plugin to perform a sparse checkout (fetch only a subtree) from a given 
           </executions>
           <configuration>
              <!-- The git repository to use -->
-             <repository>git@github.com:openshiftio/appdev-documentation.git</repository>
+             <repository>https://github.com/LZaruba/git-checkout-plugin</repository>
              <!-- The paths to checkout -->
              <paths>
-                <path>docs/topics/readme</path>
+                <path>example</path>
              </paths>
           </configuration>
        </plugin>
@@ -39,7 +43,7 @@ A Maven plugin to perform a sparse checkout (fetch only a subtree) from a given 
 
 ```
 
-#Output
+# Output
 
 ```
 [INFO] --- git-checkout-plugin:1.0.0-SNAPSHOT:git-checkout (get-docs) @ launchpad-addon ---
@@ -54,3 +58,12 @@ From github.com:openshiftio/appdev-documentation
  * [new branch]      master     -> origin/master
 [INFO] Files available in: /home/ggastald/workspace/launchpad/launchpad-addon/target/classes
 ```
+
+# Parameters
+
+|Name|Default Value|Required|Description|
+|----|-------------|--------|-----------|
+|repository||true|URL of the repository (both ssh and https work)|
+|paths||true|List of paths to be picked up from the repository (will be added to $GIT_DIR/info/sparse-checkout).
+|outputDirectory|${project.build.outputDirectory}|false|Directory into which the git content will be checked out|
+|branch|master|false|Specifies branch to be checked out|
