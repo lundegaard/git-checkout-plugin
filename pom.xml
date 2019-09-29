@@ -5,6 +5,7 @@
     <artifactId>git-checkout-plugin</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
+    <name>git-checkout-plugin</name>
     <description>A Maven plugin to perform a sparse checkout from a given Git repository.</description>
     <url>https://github.com/LZaruba/git-checkout-plugin</url>
 
