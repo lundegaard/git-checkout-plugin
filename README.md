@@ -65,7 +65,9 @@ From github.com:openshiftio/appdev-documentation
 
 |Name|Default Value|Required|Description|
 |----|-------------|--------|-----------|
-|repository||true|URL of the repository (both ssh and https work)|
-|paths||true|List of paths to be picked up from the repository (will be added to $GIT_DIR/info/sparse-checkout).
-|outputDirectory|${project.build.outputDirectory}|false|Directory into which the git content will be checked out|
-|branch|master|false|Specifies branch to be checked out|
+|`repository`||true|URL of the repository (both ssh and https work)|
+|`paths`||true|List of paths to be picked up from the repository (will be added to $GIT_DIR/info/sparse-checkout).
+|`outputDirectory`|${project.build.outputDirectory}|false|Directory into which the git content will be checked out|
+|`branch`|master|false|Specifies branch to be checked out|
+|`username`||false|If provided together with `password` and `repository` schema is https these will be used for pull|
+|`pasword`||false|see `username`|
