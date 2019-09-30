@@ -7,15 +7,14 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Consumer;
+
+import static com.github.gastaldi.git.ExecutionHelper.executeCommand;
 
 /**
  * Clones only specific paths from a Git repository
@@ -47,21 +46,22 @@ public class GitCheckoutMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        Path outputDirectoryPath = outputDirectory.toPath();
         try {
-            outputDirectory.mkdirs();
-            if (Files.exists(outputDirectory.toPath().resolve(".git"))) {
+            Files.createDirectories(outputDirectoryPath);
+            if (Files.exists(outputDirectoryPath.resolve(".git"))) {
                 throw new MojoExecutionException("Cannot execute mojo in a directory that already contains a .git directory");
             }
-            executeCommand(outputDirectory, "git", "init");
-            executeCommand(outputDirectory, "git", "remote", "add", "origin", repository);
-            executeCommand(outputDirectory, "git", "config", "core.sparseCheckout", "true");
-            Path sparseCheckoutFile = outputDirectory.toPath().resolve(".git/info/sparse-checkout");
+            executeCommand(outputDirectoryPath, "git", "init");
+            executeCommand(outputDirectoryPath, "git", "remote", "add", "origin", repository);
+            executeCommand(outputDirectoryPath, "git", "config", "core.sparseCheckout", "true");
+            Path sparseCheckoutFile = outputDirectoryPath.resolve(".git/info/sparse-checkout");
             Files.write(sparseCheckoutFile, paths);
             handleCredentials();
-            executeCommand(outputDirectory, "git", "pull", "origin", branch);
-            executeCommand(outputDirectory, "rm", "-rf", ".git");
-            getLog().info("Files were checked out in: " + outputDirectory);
-        } catch (IOException e) {
+            executeCommand(outputDirectoryPath, "git", "pull", "origin", branch);
+            executeCommand(outputDirectoryPath, "rm", "-rf", ".git");
+            getLog().info("Files were checked out in: " + outputDirectoryPath);
+        } catch (Exception e) {
             throw new MojoFailureException("Caught IOException in mojo", e);
         }
     }
@@ -70,43 +70,14 @@ public class GitCheckoutMojo extends AbstractMojo {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) return;
         getLog().info("credentials: both username and password present - configuring credentials helper");
         URI uri = URI.create(repository);
-        if (HTTPS_SCHEMA.equals(uri.getScheme())) {
+        if (!HTTPS_SCHEMA.equals(uri.getScheme())) {
             getLog().warn("skipping credentials as it cannot be used with non-https schemas: " + uri);
             return;
         }
         getLog().info("credentials: host '" + uri.getHost()  + "'");
-        executeCommand(outputDirectory,
-                p -> {
-                    BufferedWriter w = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-                    try {
-                        w.write("schema=" + HTTPS_SCHEMA + "\n");
-                        w.write("host=" + uri.getHost() + "\n");
-                        w.write("username=" + username + "\n");
-                        w.write("password=" + password + "\n");
-                        w.write("\n");
-                    } catch (IOException e) {
-                        throw new RuntimeException("Error while creating credentials storage", e);
-                    }
-                },
-                "git", "credential-store", "--file", "git.store", "store");
-        executeCommand(outputDirectory, "git", "config", "credential.helper", "'store --file git.store'");
+        new CredentialStorageHelper().storeCredentials(outputDirectory.toPath(), HTTPS_SCHEMA, uri.getHost(), username, password);
+        executeCommand(outputDirectory.toPath(), "git", "config", "credential.helper",
+                "store --file " + CredentialStorageHelper.GIT_STORE_PATH);
     }
 
-    private void executeCommand(File directory, Consumer<Process> processConsumer, String... command) throws IOException {
-        Process process = new ProcessBuilder()
-                .directory(directory)
-                .command(command)
-                .inheritIO()
-                .start();
-        try {
-            processConsumer.accept(process);
-            process.waitFor();
-        } catch (InterruptedException e) {
-            throw new IOException(e);
-        }
-    }
-
-    private void executeCommand(File directory, String... command) throws IOException {
-       executeCommand(directory, p -> {}, command);
-    }
 }
