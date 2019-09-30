@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.lzaruba</groupId>
     <artifactId>git-checkout-plugin</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>git-checkout-plugin</name>
     <description>A Maven plugin to perform a sparse checkout from a given Git repository.</description>
@@ -33,7 +33,7 @@
         <connection>scm:git:https://github.com/LZaruba/git-checkout-plugin.git</connection>
         <developerConnection>scm:git:https://github.com/LZaruba/git-checkout-plugin.git</developerConnection>
         <url>https://github.com/LZaruba/git-checkout-plugin.git</url>
-      <tag>git-checkout-plugin-1.0.2</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <distributionManagement>
