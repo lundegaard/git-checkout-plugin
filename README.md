@@ -69,5 +69,5 @@ From github.com:openshiftio/appdev-documentation
 |`paths`||true|List of paths to be picked up from the repository (will be added to $GIT_DIR/info/sparse-checkout).
 |`outputDirectory`|${project.build.outputDirectory}|false|Directory into which the git content will be checked out|
 |`branch`|master|false|Specifies branch to be checked out|
-|`username`||false|If provided together with `password` and `repository` schema is https these will be used for pull|
-|`pasword`||false|see `username`|
+|`username`||false|If provided and `repository` schema is https it will be added to the url|
+|`pasword`||false|If provided it will be added to the `username` in url. Cannot be provided without `username`|

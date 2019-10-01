@@ -3,7 +3,10 @@ package com.github.gastaldi.git.impl;
 import com.github.gastaldi.git.URLCredentialsDecorator;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Lukas Zaruba, lukas.zaruba@lundegaard.eu, 2019
@@ -31,9 +34,17 @@ public class URLCredentialsDecoratorImpl implements URLCredentialsDecorator {
     }
 
     private String getAuthority(String username, String password) {
-        String authority = username + ":";
+        String authority = encode(username) + ":";
         if (StringUtils.isEmpty(password)) return authority;
-        return authority + password;
+        return authority + encode(password);
+    }
+
+    private String encode(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Unknown encoding", e);
+        }
     }
 
 }

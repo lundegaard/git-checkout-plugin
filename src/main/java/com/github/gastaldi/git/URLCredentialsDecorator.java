@@ -7,6 +7,7 @@ public interface URLCredentialsDecorator {
 
     /**
      * Decorates given url with credentials if present or returns as is when there are no credentials
+     * Credentials will be escaped for url
      *
      * @throws IllegalArgumentException if url is not of https schema
      * @throws IllegalArgumentException if password is provided but no username
