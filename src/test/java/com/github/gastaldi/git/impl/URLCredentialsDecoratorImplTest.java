@@ -44,4 +44,10 @@ class URLCredentialsDecoratorImplTest {
                 .isEqualTo("https://user:pass@github.com/something");
     }
 
+    @Test
+    void usernameAndPasswordEscape() {
+        assertThat(new URLCredentialsDecoratorImpl().decorate(URL, "user@domain.com", "pass&"))
+                .isEqualTo("https://user%40domain.com:pass%26@github.com/something");
+    }
+
 }
