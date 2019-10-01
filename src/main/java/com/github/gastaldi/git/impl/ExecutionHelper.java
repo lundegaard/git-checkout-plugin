@@ -17,8 +17,7 @@ public class ExecutionHelper {
      * Executes given command in pwd and waits for result
      * IO is inherited from this process
      *
-     * @throws IOException when interrupted
-     * @throws RuntimeException when process finishes with status other than 0
+     * @throws ExecutionException if there is a failure, propagating the error code if available
      */
     public static void executeCommand(Path pwd, String... command) {
         try {

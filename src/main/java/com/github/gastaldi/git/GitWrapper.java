@@ -1,6 +1,5 @@
 package com.github.gastaldi.git;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -16,9 +15,9 @@ public interface GitWrapper {
 
     /**
      * Checks whether the pwd directory exists and creates if it doesn't
-     * @throws IOException if there already is a .git directory inside the pwd
+     * @throws IllegalStateException if there already is a .git directory inside the pwd
      */
-    GitWrapper ensureDirectory() throws IOException;
+    GitWrapper ensureDirectory();
 
     /**
      * Initializes new git repository in given path
