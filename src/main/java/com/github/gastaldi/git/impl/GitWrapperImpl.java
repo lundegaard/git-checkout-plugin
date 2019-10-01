@@ -27,9 +27,13 @@ public class GitWrapperImpl implements GitWrapper {
     }
 
     @Override
-    public GitWrapper ensureDirectory() throws IOException {
+    public GitWrapper ensureDirectory() {
         assertInitialized();
-        Files.createDirectories(pwd);
+        try {
+            Files.createDirectories(pwd);
+        } catch (IOException e) {
+            throw new RuntimeException("Error while creating pwd directories", e);
+        }
         if (Files.exists(getGitDirectory())) {
             throw new IllegalStateException("Cannot execute mojo in a directory that already contains a .git directory");
         }
@@ -64,7 +68,7 @@ public class GitWrapperImpl implements GitWrapper {
     }
 
     @Override
-    public GitWrapper configureSparseCheckout(List<String> paths) throws IOException {
+    public GitWrapper configureSparseCheckout(List<String> paths) {
         assertInitialized();
         if (paths == null) {
             throw new IllegalArgumentException("Paths must not be null");
@@ -74,7 +78,11 @@ public class GitWrapperImpl implements GitWrapper {
         }
         executeCommand(pwd, "git", "config", "core.sparseCheckout", "true");
         Path sparseCheckoutFile = pwd.resolve(".git/info/sparse-checkout");
-        Files.write(sparseCheckoutFile, paths);
+        try {
+            Files.write(sparseCheckoutFile, paths);
+        } catch (IOException e) {
+            throw new RuntimeException("Error while writing sparse checkout file", e);
+        }
         return this;
     }
 
