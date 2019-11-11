@@ -4,9 +4,9 @@ A Maven plugin to perform a sparse checkout (fetch only a subtree) from a given 
 
 For details on sparse checkout see https://git-scm.com/docs/git-read-tree.
 
-Forked from the original https://github.com/gastaldi/git-checkout-plugin
+Forked from the original https://github.com/gastaldi/git-checkout-plugin to https://github.com/LZaruba/git-checkout-plugin and then finally to https://github.com/lundegaard/git-checkout-plugin
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.lzaruba/git-checkout-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.lzaruba/git-checkout-plugin)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.lundegaard.maven/git-checkout-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/eu.lundegaard.maven/git-checkout-plugin)
 
 
 # POM Configuration 
@@ -17,9 +17,9 @@ Forked from the original https://github.com/gastaldi/git-checkout-plugin
   <build>
     <plugins>
        <plugin>
-          <groupId>com.github.lzaruba</groupId>
+          <groupId>eu.lundegaard.maven</groupId>
           <artifactId>git-checkout-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.0.5</version>
           <executions>
              <execution>
                 <id>get-docs</id>
@@ -31,7 +31,7 @@ Forked from the original https://github.com/gastaldi/git-checkout-plugin
           </executions>
           <configuration>
              <!-- The git repository to use -->
-             <repository>https://github.com/LZaruba/git-checkout-plugin</repository>
+             <repository>https://github.com/lundegaard/git-checkout-plugin</repository>
              <!-- The paths to checkout -->
              <paths>
                 <path>example</path>

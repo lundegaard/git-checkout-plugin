@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.lzaruba</groupId>
+    <groupId>eu.lundegaard.maven</groupId>
     <artifactId>git-checkout-plugin</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.6-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>git-checkout-plugin</name>
     <description>A Maven plugin to perform a sparse checkout from a given Git repository.</description>
-    <url>https://github.com/LZaruba/git-checkout-plugin</url>
+    <url>https://github.com/lundegaard/git-checkout-plugin</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -23,16 +23,20 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+    <organization>
+        <name>Lundegaard a.s.</name>
+        <url>http://lundegaard.eu</url>
+    </organization>
     <developers>
         <developer>
             <name>Lukas Zaruba</name>
-            <email>lukas.zaruba@gmail.com</email>
+            <email>lukas.zaruba@lundegaard.eu</email>
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:https://github.com/LZaruba/git-checkout-plugin.git</connection>
-        <developerConnection>scm:git:https://github.com/LZaruba/git-checkout-plugin.git</developerConnection>
-        <url>https://github.com/LZaruba/git-checkout-plugin.git</url>
+        <connection>scm:git:https://github.com/lundegaard/git-checkout-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/lundegaard/git-checkout-plugin.git</developerConnection>
+        <url>https://github.com/lundegaard/git-checkout-plugin.git</url>
       <tag>HEAD</tag>
   </scm>
 
